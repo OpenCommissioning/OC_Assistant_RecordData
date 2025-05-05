@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <Company>Spiratec AG</Company>
         <Product>OC.RecordData</Product>
+        <Version>1.0.0</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -13,11 +14,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="OC.Assistant.Sdk" Version="1.4.2" />
+      <PackageReference Include="OC.Assistant.Sdk" Version="1.7.1" />
     </ItemGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="echo ^&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?^&gt;^&lt;Plugin^&gt;^&lt;AssemblyFile^&gt;$(AssemblyName).dll^&lt;/AssemblyFile^&gt;^&lt;/Plugin^&gt; &gt; $(TargetDir)$(AssemblyName).plugin" />
-    </Target>
+    <ItemGroup>
+      <None Update="Config.plugin">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 
 </Project>

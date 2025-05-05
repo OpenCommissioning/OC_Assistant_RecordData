@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics;
 using OC.Assistant.Sdk;
 using TwinCAT.Ads;
 
@@ -7,7 +6,7 @@ namespace OC.RecordData;
 
 internal class AdsServer : TwinCAT.Ads.Server.AdsServer
 {
-    private readonly AmsAddress _plcAddress = new (851);
+    private readonly AmsAddress _plcAddress;
     private readonly ConcurrentQueue<Telegram> _writeInd = new();
     private readonly ConcurrentQueue<Telegram> _readInd = new();
     private readonly ConcurrentDictionary<uint, Origin> _writeRes = new();
@@ -19,6 +18,7 @@ internal class AdsServer : TwinCAT.Ads.Server.AdsServer
     /// </summary>
     public AdsServer(ushort port) : base(port, "Open Commissioning AdsServer for RecordData")
     {
+        _plcAddress = new AmsAddress(ApiLocal.Interface.Port);
         base.ConnectServer();
         Task.Run(Update);
         OC.Assistant.Sdk.Logger.LogInfo(this, $"AdsServer {AmsServer.ServerAddress?.NetId}:{AmsServer.ServerAddress?.Port} connected and started");
@@ -122,7 +122,7 @@ internal class AdsServer : TwinCAT.Ads.Server.AdsServer
     /// </summary>
     private void Update()
     {
-        var stopwatch = new Stopwatch();
+        var stopwatch = new StopwatchEx();
                 
         while (IsConnected)
         {
