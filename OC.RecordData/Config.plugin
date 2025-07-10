@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Plugin>
     <AssemblyFile>OC.RecordData.dll</AssemblyFile>
+	<RepositoryUrl>https://github.com/OpenCommissioning/OC_Assistant_RecordData</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
 </Plugin>
